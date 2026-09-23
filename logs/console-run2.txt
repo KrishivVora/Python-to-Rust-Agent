@@ -1,0 +1,51 @@
+previous rust/src/lib.rs saved to .agent/lib_before_run.rs; starting from the stub
+model=claude-sonnet-5 effort=high cost cap=$1.00
+[0] baseline: build ok, diff 6.56%, tests 1/1, violations 1, score -159.64
+[1] calling claude-sonnet-5 ... (first call writes the whole file: expect a few minutes)
+[1] $0.28  tool_use  in=3157 cached=0 out=21939  
+      -> write_rust(578 lines)  =>  build ok, diff 100.0%, tests 25/25, violations 0, score 815.0
+[end] rustfmt applied (re-verified: no regression)
+
+[stop] done: every acceptance criterion holds, re-confirmed on fresh seeds   (model calls used: 1, est. cost $0.28)
+[build] ok, 0 warning(s)
+[cargo test] 25 passed, 0 failed
+[differential vs Python semver, random non-practice seeds] 100.0%   parse valid 650/650  parse invalid 323/323  compare 1859/1859  bump 1890/1890  round-trip 630/630
+[clippy] 0 warning(s)
+[quality] unsafe_blocks=0, panic_macros=0, todo_macros=0, unwrap_calls=0, expect_in_lib=0, unreachable=0, clone_calls=0, to_owned_calls=0, ffi_or_process=0, extra_dependencies=0, tests=25, lines=529
+[score] 815.0
+[acceptance] ALL CRITERIA MET
+
+trajectory: C:\Grad Stuff\CS 6158 Software Engineering + Machine Learning\Python to Rust - Activity\Python-to-Rust-Agent\logs\run-20260923-163732.jsonl
+final score (practice seed, grader's own script):
+
+====================================================================
+  py2rust evaluation   seed=0   n=300
+====================================================================
+
+[1] cargo build            PASS
+[2] cargo test             25 passed, 0 failed
+
+[3] differential testing
+      parse valid       318/318   100.0%  #########################
+      parse invalid     171/171   100.0%  #########################
+      compare           664/664   100.0%  #########################
+      bump              954/954   100.0%  #########################
+      round-trip        318/318   100.0%  #########################
+      OVERALL          2425/2425  100.0%
+      semver.org precedence chain: PASS
+
+[4] quality
+      unsafe_blocks            0
+      clone_calls              0
+      to_owned_calls           0
+      todo_macros              0
+      panic_macros             0
+      unwrap_calls             0
+      lines                  529
+      extra_dependencies       0
+
+--------------------------------------------------------------------
+  correctness 100.0%   no rule violations
+--------------------------------------------------------------------
+
+wrote C:\Grad Stuff\CS 6158 Software Engineering + Machine Learning\Python to Rust - Activity\Python-to-Rust-Agent\logs\run-20260923-163732-eval.json

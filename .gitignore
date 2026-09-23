@@ -1,4 +1,6 @@
 rust/target/
-logs/*.jsonl
+.agent/
 __pycache__/
 *.pyc
+.env
+*.local.md

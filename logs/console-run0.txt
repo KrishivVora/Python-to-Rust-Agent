@@ -1,0 +1,6 @@
+model=claude-sonnet-5 effort=high cost cap=$1.50
+[0] baseline: build ok, diff 6.49%, tests 1/1, violations 1, score -160.06
+[1] $0.24  tool_use  in=3143 cached=0 out=17527  
+      -> write_rust(553 lines)  =>  build ok, diff 99.96%, tests 22/22, violations 1, score 414.76
+[2] $0.28  tool_use  in=10676 cached=23154 out=1887  
+      -> edit_rust(1 edits)  =>  build ok, diff 99.96%, tests 22/22, violations 0, score 814.76

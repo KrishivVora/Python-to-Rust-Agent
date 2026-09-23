@@ -22,7 +22,7 @@ import argparse, json, random, re, string, subprocess, sys, pathlib
 HERE = pathlib.Path(__file__).parent
 RUST = HERE / "rust"
 LIB  = RUST / "src" / "lib.rs"
-BIN  = RUST / "target" / "release" / "harness"
+BIN  = RUST / "target" / "release" / ("harness.exe" if sys.platform == "win32" else "harness")
 
 try:
     import semver as ref
@@ -254,7 +254,7 @@ def main():
         say("            nothing parses at all. It is not evidence of anything.")
 
     # 4 ------------------------------------------------------------ quality
-    src = LIB.read_text() if LIB.exists() else ""
+    src = LIB.read_text(encoding="utf-8") if LIB.exists() else ""
     nodoc = re.sub(r"//.*", "", src)
     q = {
         "unsafe_blocks":   len(re.findall(r"\bunsafe\b", nodoc)),
