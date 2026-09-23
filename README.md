@@ -6,15 +6,18 @@ library, [`rust/src/lib.rs`](rust/src/lib.rs), and verifies itself against the r
 while it works. The committed `lib.rs` is the agent's own output.
 
 <!-- RESULTS:START -->
-| | Committed translation (run 2) | Across all 4 runs |
+| | Committed translation (run 2) | Across all 5 runs |
 |---|---|---|
-| Compiles | yes | 4 / 4 |
-| `cargo test` | 25 / 25 passing | 21–25 tests, all passing, in every run |
+| Compiles | yes | 5 / 5 |
+| `cargo test` | 25 / 25 passing | 21–26 tests, all passing, in every run |
 | Differential vs Python `semver` (`evaluate.py`, practice seed 0) | **100.0 %** (2425 / 2425) | 100.0 % in every run |
-| Random seeds | 0 genuine mismatches over 50 seeds, 121 250 cases ([grader quirk](#known-grader-quirk)) | 0 genuine mismatches over 20 seeds, every run |
+| Random seeds | 0 genuine mismatches over 50 seeds, 121 250 cases ([grader quirk](#known-grader-quirk)) | 0 genuine mismatches over 20 seeds each (runs 0–3) |
 | `unsafe` / `panic!` / `todo!` / `.unwrap()` / `.clone()` | 0 / 0 / 0 / 0 / 0 | 0 in every run |
 | `cargo clippy` warnings | 0 | 0 at the end of every run |
-| Model calls / cost | 1 call, $0.28 | 1–2 calls, $0.28–0.31 per run (Claude Sonnet 5) |
+| Model calls / cost | 1 call, $0.28 | 1–2 calls, $0.27–0.31 per run (Claude Sonnet 5) |
+
+Run 4 was done by hand on a fresh `git clone` of this repo with only an API key added, to check
+that anyone can reproduce the result.
 <!-- RESULTS:END -->
 
 The original assignment brief is kept verbatim at the [end of this file](#appendix-the-original-assignment-brief).

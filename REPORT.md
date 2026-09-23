@@ -1,6 +1,7 @@
 # Report: Python → Rust translation agent
 
-Model: Claude Sonnet 5 (`claude-sonnet-5`, effort `high`) · 4 runs from the stub · total API spend ≈ $1.20
+Model: Claude Sonnet 5 (`claude-sonnet-5`, effort `high`) · 5 runs from the stub (the last one by
+hand, from a fresh clone of this repo) · total API spend ≈ $1.45
 
 ## 1. Final score, and where it lost points
 
@@ -14,9 +15,11 @@ precedence chain passing; 0 `unsafe`, `panic!`, `todo!`, `.unwrap()`, `.clone()`
 | 1 | 2 | $0.31 | diff 100 %, **20/21 tests** | a wrong test expectation |
 | 2 | 1 | $0.28 | everything passing | nothing: done after one call |
 | 3 | 2 | $0.30 | diff 100 %, **2 clippy warnings** | `map_or(true, …)` → `is_none_or(…)` |
+| 4 | 2 | $0.27 | diff 100 %, 26/26 tests, **3 clippy warnings** | the 3 lints (clean clone, run by hand with only an API key) |
 
-4/4 runs compiled and reached every acceptance criterion; all four final versions score 100 % on
-seed 0 and on 20 random seeds. The only points lost anywhere are on other seeds (99.8–99.9 %), and
+5/5 runs compiled and reached every acceptance criterion, each stopping on its own as "done"
+except run 0, which we interrupted. All five final versions score 100 % on seed 0; runs 0–3 were
+also checked on 20 random seeds each. The only points lost anywhere are on other seeds (99.8–99.9 %), and
 they are the grader's, not ours: its generator sometimes labels invalid versions such as
 `0.24.21-n.05.rf` "valid", so the check fails whatever the implementation does. For the committed
 translation over 50 seeds (121 250 cases), that is 0.12 % of cases, with zero genuine mismatches. Accepting those inputs would win a few
@@ -25,9 +28,9 @@ round-trip points back and break the spec; the agent does not do it.
 ## 2. How much came from the agent, and how much from the scaffold?
 
 **About 65 % agent, 35 % scaffold.** Every line of Rust is the model's, and its first draft was
-99.96–100 % correct in all four runs: the translation skill itself is the model's. But only one of
-four raw first drafts was submittable. The others had a rule violation that voids the result, a
-failing test, or lint warnings. The scaffold turned 1/4 into 4/4 and stopped each run at 1–2 calls.
+99.96–100 % correct in all five runs: the translation skill itself is the model's. But only one of
+five raw first drafts was submittable. The others had a rule violation that voids the result, a
+failing test, or lint warnings. The scaffold turned 1/5 into 5/5 and stopped each run at 1–2 calls.
 It did this through automatic build/test/diff/clippy verification after every edit, precise
 failure reports, the rule "if Python agrees 100 % and a test fails, the test is wrong", and a
 harness-verified definition of done. The prompt is also scaffold: it holds the whole Python source
@@ -62,7 +65,7 @@ little *here* because no run went past two calls; it is exercised by `selftest.p
   Scoring now uses fixed per-run seeds, and "done" is re-confirmed on three brand-new seeds.
 - **A $5 budget.** We used Sonnet 5 with the static prefix cached, a free token count plus a
   sub-cent preflight call before the first real run, a hard $ cap per run, and a halt if any run
-  cost more than expected. Development and all four runs cost about $1.20.
+  cost more than expected. Development and all five runs cost about $1.45.
 - **Trust.** `selftest.py` replays scripted model replies through the real harness, covering
   rollback, stopping rules, the cost cap and error paths, so anyone can check the machinery with no
   API key.
